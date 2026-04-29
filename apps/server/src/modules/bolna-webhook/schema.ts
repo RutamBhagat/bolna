@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@hono/zod-openapi";
 
 export const endedCallStatusSchema = z.enum(["completed", "call-disconnected"]);
 
@@ -16,6 +16,29 @@ export const endedBolnaCallSchema = z.looseObject({
   status: endedCallStatusSchema,
   conversation_time: z.coerce.number().nonnegative(),
   transcript: z.string(),
+});
+
+export const healthResponseSchema = z.object({
+  status: z.literal("ok"),
+});
+
+export const bolnaWebhookSentResponseSchema = z.object({
+  status: z.literal("sent"),
+});
+
+export const bolnaWebhookIgnoredResponseSchema = z.object({
+  status: z.literal("ignored"),
+  reason: z.literal("call_not_ended"),
+});
+
+export const bolnaWebhookInvalidResponseSchema = z.object({
+  error: z.literal("Invalid ended call payload"),
+  issues: z.array(z.unknown()),
+});
+
+export const bolnaWebhookSlackFailedResponseSchema = z.object({
+  error: z.literal("Slack delivery failed"),
+  slackStatus: z.number().int(),
 });
 
 export type BolnaWebhookPayload = z.infer<typeof bolnaWebhookPayloadSchema>;
