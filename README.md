@@ -10,6 +10,7 @@ The Slack alert includes:
 - `transcript`
 
 Non-ended webhook events are acknowledged and ignored.
+Duplicate ended webhook events with the same Bolna `id` are acknowledged and ignored after the first Slack alert.
 
 ## Setup
 
@@ -94,6 +95,7 @@ bun run deploy
 ```
 
 Configure `SLACK_WEBHOOK_URL` for the deployed Worker environment before live testing.
+Deployment also creates a Workers KV namespace used to deduplicate ended-call webhooks by Bolna `id`.
 
 To test with Bolna:
 
@@ -111,3 +113,5 @@ validation before the Slack alert could be sent.
 
 The webhook schema and Slack formatter now use `conversation_duration` as the source for
 the required `duration` value.
+
+Duplicate ended-call deliveries can happen during webhook retries or repeated local testing with the same sample payload. The Worker stores each delivered ended-call `id` in KV for 30 days and returns `{"status":"ignored","reason":"duplicate_ended_call"}` for repeats.

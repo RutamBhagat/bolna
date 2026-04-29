@@ -12,6 +12,8 @@ import { formatSlackAlert, isEndedCall, parseEndedCall, sendSlackAlert } from ".
 
 export const bolnaWebhookRoutes = new OpenAPIHono<{ Bindings: CloudflareEnv }>();
 
+const ENDED_CALL_DEDUPLICATION_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
+
 const healthRoute = createRoute({
   method: "get",
   path: "/health",
@@ -97,10 +99,23 @@ bolnaWebhookRoutes.openapi(bolnaWebhookRoute, async (c) => {
     );
   }
 
+  const deduplicationKey = `bolna-ended-call:${parsed.data.id}`;
+  const previousDelivery = await c.env.BOLNA_WEBHOOK_DEDUPE.get(deduplicationKey);
+
+  if (previousDelivery !== null) {
+    return c.json({ status: "ignored", reason: "duplicate_ended_call" }, 200);
+  }
+
+  await c.env.BOLNA_WEBHOOK_DEDUPE.put(deduplicationKey, "sent", {
+    expirationTtl: ENDED_CALL_DEDUPLICATION_TTL_SECONDS,
+  });
+
   const text = formatSlackAlert(parsed.data);
   const slackResult = await sendSlackAlert(c.env.SLACK_WEBHOOK_URL, text);
 
   if (!slackResult.ok) {
+    await c.env.BOLNA_WEBHOOK_DEDUPE.delete(deduplicationKey);
+
     return c.json(
       {
         error: "Slack delivery failed" as const,

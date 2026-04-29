@@ -28,7 +28,7 @@ export const bolnaWebhookSentResponseSchema = z.object({
 
 export const bolnaWebhookIgnoredResponseSchema = z.object({
   status: z.literal("ignored"),
-  reason: z.literal("call_not_ended"),
+  reason: z.enum(["call_not_ended", "duplicate_ended_call"]),
 });
 
 export const bolnaWebhookInvalidResponseSchema = z.object({
