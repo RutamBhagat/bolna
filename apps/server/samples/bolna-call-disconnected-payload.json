@@ -1,0 +1,151 @@
+{
+  "id": "00000000-0000-4000-8000-000000000001",
+  "agent_id": "00000000-0000-4000-8000-000000000002",
+  "status": "call-disconnected",
+  "transcript": "assistant: Hi, this is a demo call from Bolna\nuser:  yeah so can you explain what bholna is\nassistant:  Certainly! Bolna is a Voice AI platform built specifically for India, backed by Y Combinator. It enables businesses to create, deploy, and scale conversational voice AI agents that can handle thousands of inbound and outbound phone calls per minute with human-like fluency. These agents support over 10 Indian and foreign languages, including Hindi, Hinglish, Tamil, and Telugu.\n\nBolna's AI agents can perform tasks such as:\n- Answering customer support calls 24/7\n- Running outbound campaigns like cart abandonment recovery, COD confirmation, and surveys\n- Screening and interviewing job candidates at scale\n- Transferring calls to human agents when needed\n- Triggering real-time API calls during conversations\n- Integrating with workflow tools like n8n, Make.com, and Zapier\n\nIt offers both a no-code dashboard for easy setup and a developer API for programmatic control. Over 1,000 companies, including Physics Wallah, GoKwik, and Spinny, use Bolna to enhance their voice call operations efficiently.\n\nIf you'd like, I can provide more details or answer any specific questions you have!\nuser:  you can stop now\nassistant:  Sure! If you need any more information or assistance later, feel free to ask. Have a great day!\nuser:  can you like just give me a short\nassistant:  Of course! Bolna is a Voice AI platform for India that helps businesses automate phone calls in multiple languages. It can handle customer support, outbound campaigns, interviews, and more—making calls sound natural and efficient.\nuser:  tldr of the key feature that will now occurs\nassistant:  Sure! Here’s a quick TL;DR of Bolna’s key features:\n\n- Handles thousands of natural-sounding calls per minute in 10+ Indian languages  \n- Supports inbound customer support and outbound campaigns  \n- Screens and interviews candidates automatically  \n- Transfers calls to humans when needed  \n- Integrates with APIs and workflow tools in real time  \n- Offers low-latency, interruption handling, and bulk calling capabilities  \n\nLet me know if you want a summary of any specific feature!\nuser:  okay okay okay that is enough\nassistant:  Got it! If you need anything else, just let me know. Have a great day!\nuser:  that is enough thank you you can\nassistant:   You're welcome! Have a wonderful day!\nuser:  that was enough\nassistant:  Understood! Feel free to reach out anytime. Take care!\nuser:  bye\nassistant:   Goodbye! Have a great day!\n",
+  "batch_id": null,
+  "scheduled_at": null,
+  "answered_by_voice_mail": null,
+  "conversation_duration": 106.9,
+  "total_cost": 22.58,
+  "usage_breakdown": {
+    "llmModel": {
+      "azure/gpt-4.1-mini": {}
+    },
+    "voice_id": "sample_voice_id",
+    "llmTokens": 0,
+    "provider_source": {
+      "llm": "bolna",
+      "synthesizer": "bolna",
+      "transcriber": "bolna"
+    },
+    "synthesizer_model": "eleven_turbo_v2_5",
+    "transcriber_model": "nova-3",
+    "llm_usage_breakdown": {
+      "hangup": null,
+      "analytics": null,
+      "extraction": null,
+      "disposition": null,
+      "conversation": {},
+      "summarization": null
+    },
+    "synthesizer_provider": "elevenlabs",
+    "transcriber_duration": 106.39994,
+    "transcriber_language": "en",
+    "transcriber_provider": "deepgram",
+    "synthesizer_characters": 2070,
+    "synthesizer_usage_breakdown": {
+      "provider_connected": false,
+      "welcome_message_cache": false,
+      "conversation_characters": 2036,
+      "welcome_message_characters": 34
+    },
+    "transcriber_usage_breakdown": {
+      "provider_connected": false,
+      "transcriber_duration": 106.39994
+    },
+    "voicemail_detection_enabled": false,
+    "endpointing": 100,
+    "incremental_delay": 200,
+    "buffer_size": 200,
+    "hangup_after_silence": 10,
+    "check_if_user_online": true,
+    "trigger_user_online_message_after": 9
+  },
+  "cost_breakdown": {
+    "llm": 0.591,
+    "network": 0,
+    "platform": 0,
+    "synthesizer": 20.36,
+    "transcriber": 1.631,
+    "llm_breakdown": {
+      "hangup": 0,
+      "routing": 0,
+      "analytics": 0,
+      "voicemail": 0,
+      "extraction": 0,
+      "conversation": 0.591,
+      "summarization": 0
+    },
+    "synthesizer_breakdown": {
+      "conversation": 20.36,
+      "welcome_message": 0
+    },
+    "transcriber_breakdown": {
+      "analytics": 0,
+      "conversation": 1.631
+    }
+  },
+  "extracted_data": null,
+  "summary": null,
+  "error_message": null,
+  "agent_extraction": null,
+  "workflow_retries": null,
+  "rescheduled_at": null,
+  "custom_extractions": null,
+  "campaign_id": null,
+  "smart_status": null,
+  "user_number": "+910000000000",
+  "agent_number": "+12025550100",
+  "initiated_at": "2026-04-29T08:16:58.353021",
+  "retry_config": null,
+  "retry_count": 0,
+  "retry_history": null,
+  "created_at": "2026-04-29T08:16:53.577219+00:00",
+  "updated_at": "2026-04-29T08:19:10.498358+00:00",
+  "telephony_data": {
+    "duration": "0.0",
+    "to_number": "+910000000000",
+    "from_number": "+12025550100",
+    "recording_url": null,
+    "hosted_telephony": true,
+    "provider_call_id": "CA00000000000000000000000000000000",
+    "call_type": "outbound",
+    "provider": "twilio",
+    "hangup_by": null,
+    "hangup_reason": null,
+    "hangup_provider_code": null,
+    "ring_duration": null,
+    "post_dial_delay": null,
+    "to_number_carrier": null
+  },
+  "transfer_call_data": null,
+  "context_details": {
+    "recipient_data": {
+      "timezone": "Asia/Kolkata"
+    },
+    "recipient_phone_number": "+910000000000"
+  },
+  "agent_context_details": null,
+  "batch_run_details": null,
+  "provider": "twilio",
+  "latency_data": {
+    "stream_id": 504.48926,
+    "time_to_first_audio": 505.48047,
+    "region": "us",
+    "transcriber": {
+      "time_to_connect": 239,
+      "turns": []
+    },
+    "llm": {
+      "time_to_connect": null,
+      "turns": []
+    },
+    "synthesizer": {
+      "time_to_connect": 46,
+      "turns": []
+    },
+    "rag": null,
+    "interruption_stats": {
+      "user_speaking_ms": 8583,
+      "agent_speaking_ms": 11660,
+      "total_interruptions": 4,
+      "talk_to_listen_ratio": 57.6,
+      "barge_in_recovery_rate": 100,
+      "barge_in_recovery_count": 4,
+      "longest_agent_monologue_ms": 6018,
+      "agent_interrupted_user_count": 0,
+      "user_interrupted_agent_count": 4
+    }
+  }
+}

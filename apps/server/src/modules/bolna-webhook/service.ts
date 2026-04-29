@@ -18,7 +18,7 @@ export function formatSlackAlert(call: EndedBolnaCall): string {
     "*Bolna call ended*",
     `id: \`${call.id}\``,
     `agent_id: \`${call.agent_id}\``,
-    `duration: \`${call.conversation_time}s\``,
+    `duration: \`${call.conversation_duration}s\``,
     "",
     "transcript:",
     "```",

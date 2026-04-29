@@ -6,7 +6,7 @@ export const bolnaWebhookPayloadSchema = z.looseObject({
   id: z.union([z.string(), z.number()]).optional(),
   agent_id: z.string().optional(),
   status: z.string().optional(),
-  conversation_time: z.coerce.number().nonnegative().optional(),
+  conversation_duration: z.coerce.number().nonnegative().optional(),
   transcript: z.string().optional(),
 });
 
@@ -14,7 +14,7 @@ export const endedBolnaCallSchema = z.looseObject({
   id: z.union([z.string(), z.number()]).transform(String),
   agent_id: z.string().min(1),
   status: endedCallStatusSchema,
-  conversation_time: z.coerce.number().nonnegative(),
+  conversation_duration: z.coerce.number().nonnegative(),
   transcript: z.string(),
 });
 

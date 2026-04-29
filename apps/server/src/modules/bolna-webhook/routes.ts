@@ -77,11 +77,15 @@ bolnaWebhookRoutes.openapi(healthRoute, (c) => {
 bolnaWebhookRoutes.openapi(bolnaWebhookRoute, async (c) => {
   const payload = c.req.valid("json");
 
+  console.log("Bolna webhook payload", payload);
+
   if (!isEndedCall(payload)) {
     return c.json({ status: "ignored", reason: "call_not_ended" }, 200);
   }
 
   const parsed = parseEndedCall(payload);
+
+  console.log("Bolna webhook parsed", parsed);
 
   if (!parsed.success) {
     return c.json(
