@@ -14,7 +14,7 @@ Duplicate ended webhook events with the same Bolna `id` are acknowledged and ign
 
 ## Scalar API Documentation
 
-The API documentation is available at ![Scalar API Documentation](https://bolna-server-stage.rutambhagat.workers.dev/scalar) endpoint.
+The API documentation is available at the [Scalar API Documentation](https://bolna-server-stage.rutambhagat.workers.dev/scalar) endpoint.
 
 ## Setup
 
