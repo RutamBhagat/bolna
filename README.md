@@ -12,6 +12,10 @@ The Slack alert includes:
 Non-ended webhook events are acknowledged and ignored.
 Duplicate ended webhook events with the same Bolna `id` are acknowledged and ignored after the first Slack alert.
 
+## Scalar API Documentation
+
+The API documentation is available at ![Scalar API Documentation](https://bolna-server-stage.rutambhagat.workers.dev/scalar) endpoint.
+
 ## Setup
 
 Install dependencies:
@@ -43,18 +47,18 @@ Start the Cloudflare Worker locally through Alchemy:
 bun run dev
 ```
 
-The API runs at `http://127.0.0.1:3000`.
+The API runs at `http://localhost:3000`.
 
 Health check:
 
 ```bash
-curl http://127.0.0.1:3000/health
+curl http://localhost:3000/health
 ```
 
 Send a completed-call webhook:
 
 ```bash
-curl -X POST http://127.0.0.1:3000/webhooks/bolna \
+curl -X POST http://localhost:3000/webhooks/bolna \
   -H "Content-Type: application/json" \
   -d '{
     "id": "exec_123",
@@ -68,7 +72,7 @@ curl -X POST http://127.0.0.1:3000/webhooks/bolna \
 Send a non-ended webhook:
 
 ```bash
-curl -X POST http://127.0.0.1:3000/webhooks/bolna \
+curl -X POST http://localhost:3000/webhooks/bolna \
   -H "Content-Type: application/json" \
   -d '{ "status": "in-progress" }'
 ```
@@ -76,7 +80,7 @@ curl -X POST http://127.0.0.1:3000/webhooks/bolna \
 Send an invalid ended webhook:
 
 ```bash
-curl -i -X POST http://127.0.0.1:3000/webhooks/bolna \
+curl -i -X POST http://localhost:3000/webhooks/bolna \
   -H "Content-Type: application/json" \
   -d '{
     "id": "exec_123",
