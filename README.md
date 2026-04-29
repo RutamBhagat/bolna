@@ -1,56 +1,103 @@
-# bolna
+# Bolna Call-End Slack Alert
 
-This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines Hono, and more.
+This Hono service receives Bolna execution webhooks and sends a Slack incoming webhook alert when a call ends
 
-## Features
+The Slack alert includes:
 
-- **TypeScript** - For type safety and improved developer experience
-- **Hono** - Lightweight, performant server framework
-- **workers** - Runtime environment
-- **Oxlint** - Oxlint + Oxfmt (linting & formatting)
-- **Turborepo** - Optimized monorepo build system
+- `id`
+- `agent_id`
+- `duration` from Bolna `conversation_time`
+- `transcript`
 
-## Getting Started
+Non-ended webhook events are acknowledged and ignored.
 
-First, install the dependencies:
+## Setup
+
+Install dependencies:
 
 ```bash
 bun install
 ```
 
-Then, run the development server:
+Create local environment values:
+
+```bash
+cp apps/server/.env.example apps/server/.env
+```
+
+Set these values in `apps/server/.env`:
+
+```txt
+CORS_ORIGIN=*
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+```
+
+Do not commit a real Slack webhook URL.
+
+## Local Development
+
+Start the Cloudflare Worker locally through Alchemy:
 
 ```bash
 bun run dev
 ```
 
-The API is running at [http://localhost:3000](http://localhost:3000).
+The API runs at `http://127.0.0.1:3000`.
 
-## Deployment (Cloudflare via Alchemy)
+Health check:
 
-- Dev: cd apps/server && bun run dev
-- Deploy: cd apps/server && bun run deploy
-- Destroy: cd apps/server && bun run destroy
-
-For more details, see the guide on [Deploying to Cloudflare with Alchemy](https://www.better-t-stack.dev/docs/guides/cloudflare-alchemy).
-
-## Git Hooks and Formatting
-
-- Format and lint fix: `bun run check`
-
-## Project Structure
-
-```
-bolna/
-├── apps/
-│   └── server/      # Backend API (Hono)
-├── packages/
+```bash
+curl http://127.0.0.1:3000/health
 ```
 
-## Available Scripts
+Send a completed-call webhook:
 
-- `bun run dev`: Start all applications in development mode
-- `bun run build`: Build all applications
-- `bun run dev:server`: Start only the server
-- `bun run check-types`: Check TypeScript types across all apps
-- `bun run check`: Run Oxlint and Oxfmt
+```bash
+curl -X POST http://127.0.0.1:3000/webhooks/bolna \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "exec_123",
+    "agent_id": "d311e737-70e6-4075-bef6-c0ef3a7026b4",
+    "status": "completed",
+    "conversation_time": 42,
+    "transcript": "Agent: Hello from Bolna.\nUser: I need help.\nAgent: Sure."
+  }'
+```
+
+Send a non-ended webhook:
+
+```bash
+curl -X POST http://127.0.0.1:3000/webhooks/bolna \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "in-progress" }'
+```
+
+Send an invalid ended webhook:
+
+```bash
+curl -i -X POST http://127.0.0.1:3000/webhooks/bolna \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "exec_123",
+    "agent_id": "d311e737-70e6-4075-bef6-c0ef3a7026b4",
+    "status": "completed",
+    "conversation_time": 42
+  }'
+```
+
+## Deployment
+
+Deploy through the generated Alchemy package:
+
+```bash
+bun run deploy
+```
+
+Configure `SLACK_WEBHOOK_URL` for the deployed Worker environment before live testing.
+
+To test with Bolna:
+
+1. Deploy the Worker.
+2. Copy the deployed Worker URL ending in `/webhooks/bolna`.
+3. Add that URL in the Bolna agent Analytics webhook settings.
+4. Trigger a test call if the trial account allows it.

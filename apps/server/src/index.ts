@@ -1,9 +1,10 @@
-import { env } from "@bolna/env/server";
+import { env, type CloudflareEnv } from "@bolna/env/server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { bolnaWebhookRoutes } from "./modules/bolna-webhook/routes";
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareEnv }>();
 
 app.use(logger());
 app.use(
@@ -14,8 +15,6 @@ app.use(
   }),
 );
 
-app.get("/", (c) => {
-  return c.text("OK");
-});
+app.route("/", bolnaWebhookRoutes);
 
 export default app;

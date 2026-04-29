@@ -13,6 +13,7 @@ export const server = await Worker("server", {
   compatibility: "node",
   bindings: {
     CORS_ORIGIN: alchemy.env.CORS_ORIGIN!,
+    SLACK_WEBHOOK_URL: alchemy.env.SLACK_WEBHOOK_URL!,
   },
   dev: {
     port: 3000,
